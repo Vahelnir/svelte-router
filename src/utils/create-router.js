@@ -1,7 +1,9 @@
-import history from './history'
+import getHistory from './history'
 
 const DYNAMIC_PATH_REGEX = '[a-zA-Z]+'
 const DEFAULT_ROUTE = 'default'
+
+let history = null
 
 const getPathRegex = (sections) => {
   return sections.map((value) => {
@@ -46,10 +48,11 @@ const getContent = (options, path, target, pathVariables) => {
   })
 }
 
-const createRouter = options => {
+const createRouter = (options, mode) => {
   let _target // target DOM
   let _unlisten // history listener
   let _content // route instance
+  history = getHistory(mode)
 
   const handleRouteChange = location => {
     let found = false

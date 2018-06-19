@@ -3,7 +3,7 @@
 </a>
 
 <script>
-  import history from '../utils/history'
+  import getHistory from '../utils/history'
   const activedClassName = 'router-link-active'
   
   export default {
@@ -19,9 +19,9 @@
       }
     },
     oncreate () {
-      this.setActivedClass(history.location)
+      this.setActivedClass(getHistory().location)
       this.set({
-        event: history.listen(this.setActivedClass.bind(this))
+        event: getHistory().listen(this.setActivedClass.bind(this))
       })
     },
     ondestroy () {
@@ -31,13 +31,13 @@
       navigate ($e, to) {
         if ($e && $e.preventDefault) $e.preventDefault()
         if (to) {
-          const { pathname } = history.location
+          const { pathname } = getHistory().location
 
           if (pathname !== to) {
             if (this.get('replace')) {
-              history.replace(to)
+              getHistory().replace(to)
             } else {
-              history.push(to)
+              getHistory().push(to)
             }
           }
         }
